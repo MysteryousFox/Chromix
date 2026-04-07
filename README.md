@@ -1,2 +1,2 @@
 # Chromix
-Testificated
+Chromix - Palletes generator
