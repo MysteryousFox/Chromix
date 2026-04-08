@@ -1,8 +1,8 @@
 Chromix © [2026] [MysteryousFox]
 
-Разрешено копировать, распространять, и адаптировать материал при следующих условиях:
-- Вы должны указать авторство, указав имя автора или организацию.
-- Использование разрешено только в некоммерческих целях.
-- Если вы адаптируете, изменяете или создаёте производные материалы, вы должны распространять свои изменения при тех же условиях.
+Permission is granted to copy, distribute, and adapt this material under the following conditions:
+- You must provide attribution by citing the author's name or organization.
+- Use is permitted for non-commercial purposes only.
+- If you adapt, modify, or create derivative works, you must distribute your changes under the same conditions.
 
-Лицензия доступна по ссылке: https://creativecommons.org/licenses/by-nc/4.0/
+The license is available at this link: https://creativecommons.org/licenses/by-nc/4.0/

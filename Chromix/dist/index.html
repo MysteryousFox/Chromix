@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chromix</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <div class="titlebar" data-tauri-drag-region>
+    <div class="titlebar-left" data-tauri-drag-region>
+      <span class="app-title">Chromix</span>
+      <span class="app-license">CC BY-NC</span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="wc-btn" id="minimizeBtn">─</button>
+      <button class="wc-btn" id="maximizeBtn">□</button>
+      <button class="wc-btn wc-close" id="closeBtn">✕</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="panel panel-left">
+      <div class="lbl">Палитра</div>
+      <div class="wheel-wrap">
+        <canvas id="colorWheel" width="160" height="160"></canvas>
+        <div class="cursor-dot" id="cursorDot"></div>
+      </div>
+
+      <div class="brow">
+        <label for="lightnessSlider">Яркость</label>
+        <input type="range" id="lightnessSlider" min="15" max="80" value="50" step="1">
+        <span id="lightnessVal">50%</span>
+      </div>
+
+      <div class="lbl" style="margin-top:10px;">Код цвета</div>
+      <div class="hexrow">
+        <div class="hex-preview" id="hexPreview"></div>
+        <input type="text" class="hex-input" id="hexInput" value="#5B9BD5" maxlength="7" spellcheck="false">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lbl">Стиль</div>
+      <div class="style-selector">
+        <button class="style-btn active" data-style="matte">Матовый</button>
+        <button class="style-btn" data-style="contrast">Контрастный</button>
+        <button class="style-btn" data-style="fantasy">Фентези</button>
+        <button class="style-btn" data-style="pale">Бледный</button>
+        <button class="style-btn" data-style="pastel">Пастельный</button>
+        <button class="style-btn" data-style="acid">Кислотный</button>
+      </div>
+
+      <div class="lbl" style="margin-top:10px;">Количество цветов</div>
+      <div class="count-selector">
+        <button class="count-btn active" data-count="4">4</button>
+        <button class="count-btn" data-count="8">8</button>
+        <button class="count-btn" data-count="12">12</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="btnrow">
+        <button class="gen-btn" id="genBtn">Генерировать</button>
+        <button class="reroll-btn" id="rerollBtn" disabled>↻</button>
+      </div>
+    </div>
+
+    <div class="panel panel-right">
+
+      <div id="mainView">
+        <div class="lbl">Результат</div>
+        <div class="results" id="results">
+          <div class="empty-hint">Выберите цвет и стиль,<br>нажмите «Генерировать»</div>
+        </div>
+
+        <div class="download-wrap" id="downloadWrap" style="display:none;">
+          <button class="download-open-btn" id="downloadOpenBtn">↓ Скачать как...</button>
+          <div class="fmt-step" id="fmtStep" style="display:none;">
+            <button class="fmt-btn" data-fmt="ase">.ase</button>
+            <button class="fmt-btn" data-fmt="gpl">.gpl</button>
+            <button class="fmt-btn" data-fmt="pal">.pal</button>
+            <button class="fmt-btn" data-fmt="aseprite">.aseprite</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="preview-toggle-btn" id="previewToggleBtn">Превью</button>
+
+        <div class="divider"></div>
+        <div class="lbl">Фидбек</div>
+
+        <button class="feedback-open-btn" id="feedbackOpenBtn">→ Оставить фидбек</button>
+
+        <div class="fb-step" id="fbStep1" style="display:none;">
+          <div class="step-hint">Выберите тему:</div>
+          <div class="topics">
+            <button class="topic-btn" data-topic="Подбор цветов">Подбор цветов</button>
+            <button class="topic-btn" data-topic="Удобность">Удобность</button>
+            <button class="topic-btn" data-topic="Функциональность">Функциональность</button>
+          </div>
+        </div>
+
+        <div class="fb-step" id="fbStep2" style="display:none;">
+          <div class="selected-topic-label" id="selectedTopicLabel">Тема: —</div>
+          <textarea class="fb-textarea" id="fbTextarea" placeholder="Дополнительно (необязательно)..."></textarea>
+          <button class="send-btn" id="sendBtn">→ Отправить</button>
+          <button class="back-btn" id="backBtn">← назад</button>
+        </div>
+      </div>
+
+      <div id="previewView" style="display:none;">
+        <div class="preview-header">
+          <div class="lbl" style="margin-bottom:0;">Превью</div>
+          <button class="preview-back-btn" id="previewBackBtn">← назад</button>
+        </div>
+
+        <div class="preview-columns-wrap" id="previewColumnsWrap">
+          <div class="preview-columns" id="previewColumns"></div>
+        </div>
+
+        <div class="preview-palette-hint" id="previewPaletteHint" style="display:none;">
+          <span class="preview-palette-lbl">Из палитры</span>
+          <div class="preview-palette-swatches" id="previewPaletteSwatches"></div>
+        </div>
+
+        <div class="preview-inputs" id="previewInputs"></div>
+
+        <div class="preview-blur-row">
+          <span class="preview-blur-lbl">Размытие</span>
+          <input type="range" id="blurSlider" min="0" max="80" value="0" step="1">
+          <span class="preview-blur-val" id="blurVal">0px</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/colorUtils.js"></script>
+<script src="js/colorWheel.js"></script>
+<script src="js/paletteEngine.js"></script>
+<script src="js/feedback.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
